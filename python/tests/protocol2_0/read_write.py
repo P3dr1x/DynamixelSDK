@@ -68,7 +68,7 @@ if MY_DXL == 'X_SERIES' or MY_DXL == 'MX_SERIES':
     ADDR_GOAL_POSITION          = 116
     ADDR_PRESENT_POSITION       = 132
     DXL_MINIMUM_POSITION_VALUE  = 0         # Refer to the Minimum Position Limit of product eManual
-    DXL_MAXIMUM_POSITION_VALUE  = 4095      # Refer to the Maximum Position Limit of product eManual
+    DXL_MAXIMUM_POSITION_VALUE  = 2048     # Refer to the Maximum Position Limit of product eManual
     BAUDRATE                    = 57600
 elif MY_DXL == 'PRO_SERIES':
     ADDR_TORQUE_ENABLE          = 562       # Control table address is different in DYNAMIXEL model
@@ -107,7 +107,7 @@ TORQUE_ENABLE               = 1     # Value for enabling the torque
 TORQUE_DISABLE              = 0     # Value for disabling the torque
 DXL_MOVING_STATUS_THRESHOLD = 20    # Dynamixel moving status threshold
 
-index = 0
+index = 1
 dxl_goal_position = [DXL_MINIMUM_POSITION_VALUE, DXL_MAXIMUM_POSITION_VALUE]         # Goal position
 
 
