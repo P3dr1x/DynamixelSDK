@@ -97,7 +97,7 @@ csv_writer.writerow(['Tempo (s)', 'Posizione Desiderata', 'Posizione Attuale', '
 # Inizio del movimento 
 start_time = time.time()
 
-# Imposta la posizione obiettivo a 40 gradi
+# Imposta la posizione obiettivo a 60 gradi
 goal_position = degree_to_dxl_position(60)
 dxl_comm_result, dxl_error = packetHandler.write4ByteTxRx(portHandler, DXL_ID, ADDR_MX_GOAL_POSITION, goal_position)
 if dxl_comm_result != COMM_SUCCESS:
