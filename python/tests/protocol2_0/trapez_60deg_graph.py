@@ -66,7 +66,7 @@ elif dxl_error != 0:
     print(f"Errore di trasmissione: {packetHandler.getRxPacketError(dxl_error)}")
 
 # Imposta l'accelerazione del profilo
-acceleration = 200  # Tempo di accelerazione (in ms)
+acceleration = 500  # Tempo di accelerazione (in ms)
 dxl_comm_result, dxl_error = packetHandler.write4ByteTxRx(portHandler, DXL_ID, ADDR_MX_PROFILE_ACCELERATION, acceleration)
 if dxl_comm_result != COMM_SUCCESS:
     print(f"Errore di comunicazione: {packetHandler.getTxRxResult(dxl_comm_result)}")
@@ -74,7 +74,7 @@ elif dxl_error != 0:
     print(f"Errore di trasmissione: {packetHandler.getRxPacketError(dxl_error)}")
 
 # Imposta la velocità del profilo
-velocity = 1000  # Tempo a Velocità massima (in ms)
+velocity = 4000  # Tempo a Velocità massima (in ms)
 dxl_comm_result, dxl_error = packetHandler.write4ByteTxRx(portHandler, DXL_ID, ADDR_MX_PROFILE_VELOCITY, velocity)
 if dxl_comm_result != COMM_SUCCESS:
     print(f"Errore di comunicazione: {packetHandler.getTxRxResult(dxl_comm_result)}")
@@ -122,7 +122,7 @@ while True:
     if abs(goal_position - current_position) < 5 or elapsed_time > 10:  # riceve l'ordine di andare oltre solo se sono vicino alla pos desiderata o se è passato tanto tempo
         break
 
-time.sleep(3)
+time.sleep(5)
 print(f"Inizio il ritorno a t= {elapsed_time:.2f}")
 
 # Ritornare alla posizione iniziale (0 gradi)
@@ -147,7 +147,7 @@ while True:
     csv_writer.writerow([elapsed_time, goal_position, current_position, current_velocity_rpm])
 
     elapsed_time = time.time() - start_time
-    if abs(goal_position - current_position) < 5 or elapsed_time > 40:
+    if abs(goal_position - current_position) < 10 or elapsed_time > 40:
         break
 
 time.sleep(0.1)

@@ -11,6 +11,10 @@ ADDR_MX_PROFILE_VELOCITY = 112
 ADDR_MX_GOAL_POSITION = 116
 ADDR_MX_PRESENT_POSITION = 132
 
+# Coefficienti del PID
+ADDR_MX_POSITION_P_GAIN = 84
+ADDR_MX_POSITION_I_GAIN = 82
+
 # Lunghezza dei dati
 LEN_MX_GOAL_POSITION = 4
 
@@ -44,6 +48,21 @@ else:
     print("Impossibile impostare il baudrate")
     quit()
 
+# Imposta il coefficiente integrativo (I) a 250
+k_i = 250
+dxl_comm_result, dxl_error = packetHandler.write4ByteTxRx(portHandler, DXL_ID, ADDR_MX_POSITION_I_GAIN, k_i)
+if dxl_comm_result != COMM_SUCCESS:
+    print(f"Errore di comunicazione: {packetHandler.getTxRxResult(dxl_comm_result)}")
+elif dxl_error != 0:
+    print(f"Errore di trasmissione: {packetHandler.getRxPacketError(dxl_error)}")
+
+# Imposta il coefficiente proporzionale (P) a 250
+k_p = 850
+dxl_comm_result, dxl_error = packetHandler.write4ByteTxRx(portHandler, DXL_ID, ADDR_MX_POSITION_P_GAIN, k_p)
+if dxl_comm_result != COMM_SUCCESS:
+    print(f"Errore di comunicazione: {packetHandler.getTxRxResult(dxl_comm_result)}")
+elif dxl_error != 0:
+    print(f"Errore di trasmissione: {packetHandler.getRxPacketError(dxl_error)}")
 
 # Imposta il profilo basato sul tempo
 dxl_comm_result, dxl_error = packetHandler.write1ByteTxRx(portHandler, DXL_ID, ADDR_MX_DRIVE_MODE, 4)
@@ -61,13 +80,12 @@ elif dxl_error != 0:
     print(f"Errore di trasmissione: {packetHandler.getRxPacketError(dxl_error)}")
 
 # Imposta la velocità del profilo
-velocity = 4000  # Tempo a Velocità massima (in ms)
+velocity = 4000  # Tempo totale del profilo (in ms)
 dxl_comm_result, dxl_error = packetHandler.write4ByteTxRx(portHandler, DXL_ID, ADDR_MX_PROFILE_VELOCITY, velocity)
 if dxl_comm_result != COMM_SUCCESS:
     print(f"Errore di comunicazione: {packetHandler.getTxRxResult(dxl_comm_result)}")
 elif dxl_error != 0:
     print(f"Errore di trasmissione: {packetHandler.getRxPacketError(dxl_error)}")
-
 
 # Abilita la coppia del Dynamixel
 dxl_comm_result, dxl_error = packetHandler.write1ByteTxRx(portHandler, DXL_ID, ADDR_MX_TORQUE_ENABLE, TORQUE_ENABLE)
